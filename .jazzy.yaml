@@ -1,0 +1,7 @@
+# RemoteRequest document generator jazzy settings
+
+copyright: Copyright 2021 Pavel Moslienko
+author: Pavel Moslienko
+xcodebuild_arguments: [-target, RemoteRequest-iOS]
+clean: true
+output: ./Documentation
