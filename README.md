@@ -52,7 +52,7 @@ pod 'RemoteRequest'
 To integrate RemoteRequest into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "PavelMoslienko/RemoteRequest"
+github "moslienko/RemoteRequest"
 ```
 
 Run `carthage update` to build the framework and drag the built `RemoteRequest.framework` into your Xcode project. 
@@ -65,7 +65,7 @@ To integrate using Apple's [Swift Package Manager](https://swift.org/package-man
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/PavelMoslienko/RemoteRequest.git", from: "1.0.0")
+    .package(url: "https://github.com/moslienko/RemoteRequest.git", from: "1.0.0")
 ]
 ```
 
