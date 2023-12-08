@@ -1,5 +1,5 @@
 //
-//  TodoModel.swift
+//  IdendifierModel.swift
 //  Example
 //
 //  Created by Pavel Moslienko on 08.12.2023.
@@ -8,9 +8,6 @@
 
 import Foundation
 
-struct TodoModel {
-    var userId: Int
+struct IdendifierModel {
     var id: Int
-    var title: String
-    var completed: Bool
 }

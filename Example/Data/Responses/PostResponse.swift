@@ -1,5 +1,5 @@
 //
-//  TodoResponse.swift
+//  PostResponse.swift
 //  Example
 //
 //  Created by Pavel Moslienko on 08.12.2023.
@@ -9,28 +9,28 @@
 import Foundation
 import RemoteRequest
 
-class TodoResponse: ObjectMappable {
+class PostResponse: ObjectMappable {
     
-    typealias MappableOutput = TodoModel
+    typealias MappableOutput = PostModel
     
     var userId: Int
     var id: Int
     var title: String
-    var completed: Bool
+    var body: String
     
     enum CodingKeys: String, CodingKey {
         case userId = "userId"
         case id = "id"
         case title = "title"
-        case completed = "completed"
+        case body = "body"
     }
     
-    func createModel() -> TodoModel? {
-        return TodoModel(
+    func createModel() -> PostModel? {
+        return PostModel(
             userId: self.userId,
             id: self.id,
             title: self.title,
-            completed: self.completed
+            body: self.body
         )
     }
 }

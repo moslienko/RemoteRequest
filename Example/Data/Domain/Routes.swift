@@ -9,18 +9,56 @@
 import Foundation
 import RemoteRequest
 
+#warning("todo id as parameter")
 struct Routes {
-    @Route<TodoResponse, TodoModel>("https://jsonplaceholder.typicode.com/todos/1", method: .get)
-    var fetchItem: URLRequest
+    @Route<PostResponse, PostModel>("https://jsonplaceholder.typicode.com/posts/1", method: .get)
+    var fetchPost: URLRequest
     
-    @Route<[TodoResponse], [TodoModel]>("https://jsonplaceholder.typicode.com/todos", method: .get)
-    var fetchItems: URLRequest
+    @Route<[PostResponse], [PostModel]>("https://jsonplaceholder.typicode.com/posts", method: .get)
+    var fetchPosts: URLRequest
     
-    func fetchItem(completion: @escaping (Result<TodoModel, Error>) -> Void) {
-        _fetchItem.runRequest(completion: completion)
+    @Route<IdendifierResponse, IdendifierModel>("https://jsonplaceholder.typicode.com/posts", method: .post)
+    var createPost: URLRequest
+    
+    @Route<IdendifierResponse, IdendifierModel>("https://jsonplaceholder.typicode.com/posts/1", method: .put)
+    var updatePost: URLRequest
+    
+    @Route<EmptyResponse, Any>("https://jsonplaceholder.typicode.com/posts/1", method: .delete)
+    var deletePost: URLRequest
+    
+    @Route<[PostResponse], [PostModel]>("https://jsonplaceholder.typicode.com/posts?userId=1", method: .get)
+    var fetchingFilteresPosts: URLRequest
+    
+    @Route<[CommentResponse], [CommentModel]>("https://jsonplaceholder.typicode.com/posts/1/comments", method: .get)
+    var fetchComments: URLRequest
+    
+    func fetchPost(completion: @escaping (Result<PostModel, Error>) -> Void) {
+        _fetchPost.runRequest(completion: completion)
     }
     
-    func fetchItems(completion: @escaping (Result<[TodoModel], Error>) -> Void) {
-        _fetchItems.runRequest(completion: completion)
+    func fetchPosts(completion: @escaping (Result<[PostModel], Error>) -> Void) {
+        _fetchPosts.runRequest(completion: completion)
+    }
+    
+    mutating func createPost(_ post: CreatePostRequest, completion: @escaping (Result<IdendifierModel, Error>) -> Void) {
+        _createPost.setInputData(parameters: nil, body: post)
+        _createPost.runRequest(completion: completion)
+    }
+    
+    mutating func updatePost(_ post: UpdatePostRequest, completion: @escaping (Result<IdendifierModel, Error>) -> Void) {
+        _createPost.setInputData(parameters: nil, body: post)
+        _updatePost.runRequest(completion: completion)
+    }
+    
+    func deletePost(completion: @escaping (Result<Any, Error>) -> Void) {
+        _deletePost.runRequest(completion: completion)
+    }
+    
+    func fetchingFilteresPosts(completion: @escaping (Result<[PostModel], Error>) -> Void) {
+        _fetchingFilteresPosts.runRequest(completion: completion)
+    }
+    
+    func fetchComments(completion: @escaping (Result<[CommentModel], Error>) -> Void) {
+        _fetchComments.runRequest(completion: completion)
     }
 }
