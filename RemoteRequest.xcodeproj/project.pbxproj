@@ -21,12 +21,20 @@
 		3D9C433522746323000A6585 /* RemoteRequest.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C429022745894000A6585 /* RemoteRequest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		95BD85392B22CF490010363E /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85382B22CF490010363E /* Route.swift */; };
 		95BD853C2B22CFD10010363E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD853B2B22CFD10010363E /* HTTPMethod.swift */; };
-		95BD853F2B22D0E20010363E /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD853E2B22D0E20010363E /* TodoModel.swift */; };
-		95BD85432B22D2260010363E /* TodoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85422B22D2260010363E /* TodoResponse.swift */; };
+		95BD853F2B22D0E20010363E /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD853E2B22D0E20010363E /* PostModel.swift */; };
+		95BD85432B22D2260010363E /* PostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85422B22D2260010363E /* PostResponse.swift */; };
 		95BD85462B22D3020010363E /* ObjectMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85442B22D2D70010363E /* ObjectMappable.swift */; };
 		95BD854B2B22F10C0010363E /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD854A2B22F10C0010363E /* RequestType.swift */; };
 		95BD854F2B23110E0010363E /* ExampleViewControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD854E2B23110E0010363E /* ExampleViewControllerModel.swift */; };
 		95BD85522B23123E0010363E /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85512B23123E0010363E /* Routes.swift */; };
+		95BD85582B2318290010363E /* CreatePostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85572B2318290010363E /* CreatePostRequest.swift */; };
+		95BD855A2B23187C0010363E /* UpdatePostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85592B23187C0010363E /* UpdatePostRequest.swift */; };
+		95BD855C2B231AFF0010363E /* CommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD855B2B231AFF0010363E /* CommentResponse.swift */; };
+		95BD855E2B231B090010363E /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD855D2B231B090010363E /* CommentModel.swift */; };
+		95BD855F2B2325840010363E /* InputBodyObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85532B2316840010363E /* InputBodyObject.swift */; };
+		95BD85612B233AF30010363E /* IdendifierModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85602B233AF30010363E /* IdendifierModel.swift */; };
+		95BD85632B233B070010363E /* IdendifierResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85622B233B070010363E /* IdendifierResponse.swift */; };
+		95BD85662B233C0A0010363E /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85642B233BEF0010363E /* EmptyResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,12 +110,20 @@
 		3D9C432F2274629C000A6585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		95BD85382B22CF490010363E /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		95BD853B2B22CFD10010363E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
-		95BD853E2B22D0E20010363E /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
-		95BD85422B22D2260010363E /* TodoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoResponse.swift; sourceTree = "<group>"; };
+		95BD853E2B22D0E20010363E /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		95BD85422B22D2260010363E /* PostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostResponse.swift; sourceTree = "<group>"; };
 		95BD85442B22D2D70010363E /* ObjectMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMappable.swift; sourceTree = "<group>"; };
 		95BD854A2B22F10C0010363E /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
 		95BD854E2B23110E0010363E /* ExampleViewControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewControllerModel.swift; sourceTree = "<group>"; };
 		95BD85512B23123E0010363E /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
+		95BD85532B2316840010363E /* InputBodyObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBodyObject.swift; sourceTree = "<group>"; };
+		95BD85572B2318290010363E /* CreatePostRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostRequest.swift; sourceTree = "<group>"; };
+		95BD85592B23187C0010363E /* UpdatePostRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePostRequest.swift; sourceTree = "<group>"; };
+		95BD855B2B231AFF0010363E /* CommentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentResponse.swift; sourceTree = "<group>"; };
+		95BD855D2B231B090010363E /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
+		95BD85602B233AF30010363E /* IdendifierModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdendifierModel.swift; sourceTree = "<group>"; };
+		95BD85622B233B070010363E /* IdendifierResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdendifierResponse.swift; sourceTree = "<group>"; };
+		95BD85642B233BEF0010363E /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,8 +282,9 @@
 		95BD853A2B22CFCA0010363E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				95BD85442B22D2D70010363E /* ObjectMappable.swift */,
+				95BD85552B2316990010363E /* Protocols */,
 				95BD853B2B22CFD10010363E /* HTTPMethod.swift */,
+				95BD85642B233BEF0010363E /* EmptyResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -275,8 +292,10 @@
 		95BD853D2B22D0520010363E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				95BD853E2B22D0E20010363E /* TodoModel.swift */,
+				95BD853E2B22D0E20010363E /* PostModel.swift */,
 				95BD854A2B22F10C0010363E /* RequestType.swift */,
+				95BD855D2B231B090010363E /* CommentModel.swift */,
+				95BD85602B233AF30010363E /* IdendifierModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -284,7 +303,9 @@
 		95BD85402B22D2110010363E /* Responses */ = {
 			isa = PBXGroup;
 			children = (
-				95BD85422B22D2260010363E /* TodoResponse.swift */,
+				95BD85422B22D2260010363E /* PostResponse.swift */,
+				95BD855B2B231AFF0010363E /* CommentResponse.swift */,
+				95BD85622B233B070010363E /* IdendifierResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -292,6 +313,7 @@
 		95BD85412B22D2180010363E /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				95BD85562B2318140010363E /* Requests */,
 				95BD85502B23122E0010363E /* Domain */,
 				95BD854C2B2310E50010363E /* UI */,
 				95BD85402B22D2110010363E /* Responses */,
@@ -323,6 +345,24 @@
 				95BD85512B23123E0010363E /* Routes.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		95BD85552B2316990010363E /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				95BD85442B22D2D70010363E /* ObjectMappable.swift */,
+				95BD85532B2316840010363E /* InputBodyObject.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		95BD85562B2318140010363E /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				95BD85572B2318290010363E /* CreatePostRequest.swift */,
+				95BD85592B23187C0010363E /* UpdatePostRequest.swift */,
+			);
+			path = Requests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -712,7 +752,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				95BD853C2B22CFD10010363E /* HTTPMethod.swift in Sources */,
+				95BD855F2B2325840010363E /* InputBodyObject.swift in Sources */,
 				95BD85462B22D3020010363E /* ObjectMappable.swift in Sources */,
+				95BD85662B233C0A0010363E /* EmptyResponse.swift in Sources */,
 				95BD85392B22CF490010363E /* Route.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -766,13 +808,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95BD853F2B22D0E20010363E /* TodoModel.swift in Sources */,
+				95BD85612B233AF30010363E /* IdendifierModel.swift in Sources */,
+				95BD853F2B22D0E20010363E /* PostModel.swift in Sources */,
+				95BD855E2B231B090010363E /* CommentModel.swift in Sources */,
 				95BD85522B23123E0010363E /* Routes.swift in Sources */,
+				95BD855A2B23187C0010363E /* UpdatePostRequest.swift in Sources */,
+				95BD855C2B231AFF0010363E /* CommentResponse.swift in Sources */,
 				3D9C43262274629B000A6585 /* ExampleViewController.swift in Sources */,
-				95BD85432B22D2260010363E /* TodoResponse.swift in Sources */,
+				95BD85632B233B070010363E /* IdendifierResponse.swift in Sources */,
+				95BD85432B22D2260010363E /* PostResponse.swift in Sources */,
 				3D9C43242274629B000A6585 /* AppDelegate.swift in Sources */,
 				95BD854F2B23110E0010363E /* ExampleViewControllerModel.swift in Sources */,
 				95BD854B2B22F10C0010363E /* RequestType.swift in Sources */,
+				95BD85582B2318290010363E /* CreatePostRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

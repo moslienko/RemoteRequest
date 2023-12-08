@@ -13,8 +13,9 @@ public struct Route<Output: Decodable, MappableOutput> {
     let path: String
     let method: HTTPMethod
     let headers: [String: String]
-    let parameters: [String: Any]?
-    
+    var parameters: [String: Any]?
+    var body: InputBodyObject?
+
     public var wrappedValue: URLRequest {
         var urlComponents = URLComponents(string: path)
         if let parameters = parameters {
@@ -29,18 +30,32 @@ public struct Route<Output: Decodable, MappableOutput> {
         request.httpMethod = method.rawValue
         request.allHTTPHeaderFields = headers
         
+        if method != .get,
+           let body = body {
+            request.httpBody = try? JSONEncoder().encode(body)
+        }
+        
         return request
     }
     
-    public init(_ path: String, method: HTTPMethod, headers: [String: String] = [:], parameters: [String: Any]? = nil) {
+    public init(_ path: String, method: HTTPMethod, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil) {
         self.path = path
         self.method = method
         self.headers = headers
         self.parameters = parameters
+        self.body = body
+    }
+    
+    public mutating
+    func setInputData(parameters: [String: Any]?, body: InputBodyObject?) {
+        self.parameters = parameters
+        self.body = body
     }
     
     public func runRequest<MappableOutput>(completion: @escaping (Result<MappableOutput, Error>) -> Void) {
         let task = URLSession.shared.dataTask(with: wrappedValue) { data, response, error in
+            print("Response - \(response)")
+
             if let error = error {
                 completion(.failure(error))
                 return
