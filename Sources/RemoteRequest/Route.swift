@@ -15,7 +15,7 @@ public struct Route<Output: Decodable, MappableOutput> {
     let headers: [String: String]
     var parameters: [String: Any]?
     var body: InputBodyObject?
-
+    
     public var wrappedValue: URLRequest {
         var urlComponents = URLComponents(string: path)
         if let parameters = parameters {
@@ -46,16 +46,10 @@ public struct Route<Output: Decodable, MappableOutput> {
         self.body = body
     }
     
-    public mutating
-    func setInputData(parameters: [String: Any]?, body: InputBodyObject?) {
-        self.parameters = parameters
-        self.body = body
-    }
-    
-    public func runRequest<MappableOutput>(completion: @escaping (Result<MappableOutput, Error>) -> Void) {
+    public func runRequest<MappableOutput>(completion: @escaping (ResultData<MappableOutput>) -> Void) {
         let task = URLSession.shared.dataTask(with: wrappedValue) { data, response, error in
             print("Response - \(response)")
-
+            
             if let error = error {
                 completion(.failure(error))
                 return

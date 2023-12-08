@@ -14,29 +14,30 @@ class ExampleViewControllerModel {
     var onBeginLoading: (() -> Void)?
     var onFinishLoading: (() -> Void)?
     var onDisplayRequestResult: ((String) -> Void)?
-        
+    
     func handleRequest(_ request: RequestType) {
+        let routes = Routes()
+        
         DispatchQueue.main.async {
             self.onBeginLoading?()
         }
         
         switch request {
         case .fetchingPosts:
-            Routes().fetchPosts { result in
+            routes.fetchPosts { result in
                 DispatchQueue.main.async {
                     self.onFinishLoading?()
                     self.onDisplayRequestResult?("\(result)")
                 }
             }
         case .fetchPost:
-            Routes().fetchPost { result in
+            routes.fetchPost(postID: 1) { result in
                 DispatchQueue.main.async {
                     self.onFinishLoading?()
                     self.onDisplayRequestResult?("\(result)")
                 }
             }
         case .createPost:
-            var routes = Routes()
             routes.createPost(CreatePostRequest(userId: 1, title: "Hello", body: "world!")) { result in
                 DispatchQueue.main.async {
                     self.onFinishLoading?()
@@ -44,29 +45,28 @@ class ExampleViewControllerModel {
                 }
             }
         case .updatePost:
-            var routes = Routes()
-            routes.updatePost(UpdatePostRequest(id: 0, userId: 1, title: "Updated title", body: "Updated body")) { result in
+            routes.updatePost(UpdatePostRequest(id: 1, userId: 1, title: "Updated title", body: "Updated body")) { result in
                 DispatchQueue.main.async {
                     self.onFinishLoading?()
                     self.onDisplayRequestResult?("\(result)")
                 }
             }
         case .deletePost:
-            Routes().deletePost { result in
+            routes.deletePost(postID: 3) { result in
                 DispatchQueue.main.async {
                     self.onFinishLoading?()
                     self.onDisplayRequestResult?("\(result)")
                 }
             }
         case .fetchingFilteresPosts:
-            Routes().fetchingFilteresPosts { result in
+            routes.fetchingFilteresPosts(userId: 5) { result in
                 DispatchQueue.main.async {
                     self.onFinishLoading?()
                     self.onDisplayRequestResult?("\(result)")
                 }
             }
         case .fetchComments:
-            Routes().fetchComments { result in
+            routes.fetchComments(postId: 7) { result in
                 DispatchQueue.main.async {
                     self.onFinishLoading?()
                     self.onDisplayRequestResult?("\(result)")

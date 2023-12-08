@@ -9,56 +9,55 @@
 import Foundation
 import RemoteRequest
 
-#warning("todo id as parameter")
 struct Routes {
-    @Route<PostResponse, PostModel>("https://jsonplaceholder.typicode.com/posts/1", method: .get)
-    var fetchPost: URLRequest
+    private static var baseURL = "https://jsonplaceholder.typicode.com"
     
-    @Route<[PostResponse], [PostModel]>("https://jsonplaceholder.typicode.com/posts", method: .get)
+    @Route<[PostResponse], [PostModel]>(Routes.baseURL + "/posts", method: .get)
     var fetchPosts: URLRequest
     
-    @Route<IdendifierResponse, IdendifierModel>("https://jsonplaceholder.typicode.com/posts", method: .post)
-    var createPost: URLRequest
-    
-    @Route<IdendifierResponse, IdendifierModel>("https://jsonplaceholder.typicode.com/posts/1", method: .put)
-    var updatePost: URLRequest
-    
-    @Route<EmptyResponse, Any>("https://jsonplaceholder.typicode.com/posts/1", method: .delete)
-    var deletePost: URLRequest
-    
-    @Route<[PostResponse], [PostModel]>("https://jsonplaceholder.typicode.com/posts?userId=1", method: .get)
-    var fetchingFilteresPosts: URLRequest
-    
-    @Route<[CommentResponse], [CommentModel]>("https://jsonplaceholder.typicode.com/posts/1/comments", method: .get)
-    var fetchComments: URLRequest
-    
-    func fetchPost(completion: @escaping (Result<PostModel, Error>) -> Void) {
+    func fetchPost(postID: Int, completion: @escaping (ResultData<PostModel>) -> Void) {
+        @Route<PostResponse, PostModel>(Routes.baseURL + "/posts/\(postID)", method: .get)
+        var fetchPost: URLRequest
+        
         _fetchPost.runRequest(completion: completion)
     }
     
-    func fetchPosts(completion: @escaping (Result<[PostModel], Error>) -> Void) {
+    func fetchPosts(completion: @escaping (ResultData<[PostModel]>) -> Void) {
         _fetchPosts.runRequest(completion: completion)
     }
     
-    mutating func createPost(_ post: CreatePostRequest, completion: @escaping (Result<IdendifierModel, Error>) -> Void) {
-        _createPost.setInputData(parameters: nil, body: post)
+    func createPost(_ post: CreatePostRequest, completion: @escaping (ResultData<IdendifierModel>) -> Void) {
+        @Route<IdendifierResponse, IdendifierModel>(Routes.baseURL + "/posts", method: .post, body: post)
+        var createPost: URLRequest
+        
         _createPost.runRequest(completion: completion)
     }
     
-    mutating func updatePost(_ post: UpdatePostRequest, completion: @escaping (Result<IdendifierModel, Error>) -> Void) {
-        _createPost.setInputData(parameters: nil, body: post)
+    func updatePost(_ post: UpdatePostRequest, completion: @escaping (ResultData<IdendifierModel>) -> Void) {
+        @Route<IdendifierResponse, IdendifierModel>(Routes.baseURL + "/posts/\(post.id)", method: .put, body: post)
+        var updatePost: URLRequest
+        
         _updatePost.runRequest(completion: completion)
     }
     
-    func deletePost(completion: @escaping (Result<Any, Error>) -> Void) {
+    func deletePost(postID: Int, completion: @escaping (ResultData<Any>) -> Void) {
+        @Route<EmptyResponse, Any>(Routes.baseURL + "/posts/\(postID)", method: .delete)
+        var deletePost: URLRequest
+        
         _deletePost.runRequest(completion: completion)
     }
     
-    func fetchingFilteresPosts(completion: @escaping (Result<[PostModel], Error>) -> Void) {
+    func fetchingFilteresPosts(userId: Int, completion: @escaping (ResultData<[PostModel]>) -> Void) {
+        @Route<[PostResponse], [PostModel]>(Routes.baseURL + "/posts?userId=\(userId)", method: .get)
+        var fetchingFilteresPosts: URLRequest
+        
         _fetchingFilteresPosts.runRequest(completion: completion)
     }
     
-    func fetchComments(completion: @escaping (Result<[CommentModel], Error>) -> Void) {
+    func fetchComments(postId: Int,completion: @escaping (ResultData<[CommentModel]>) -> Void) {
+        @Route<[CommentResponse], [CommentModel]>(Routes.baseURL + "/posts/\(postId)/comments", method: .get)
+        var fetchComments: URLRequest
+        
         _fetchComments.runRequest(completion: completion)
     }
 }

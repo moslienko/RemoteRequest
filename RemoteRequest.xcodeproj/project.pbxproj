@@ -35,6 +35,7 @@
 		95BD85612B233AF30010363E /* IdendifierModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85602B233AF30010363E /* IdendifierModel.swift */; };
 		95BD85632B233B070010363E /* IdendifierResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85622B233B070010363E /* IdendifierResponse.swift */; };
 		95BD85662B233C0A0010363E /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85642B233BEF0010363E /* EmptyResponse.swift */; };
+		95BD85692B2341F90010363E /* ResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85672B2341DF0010363E /* ResultData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +125,7 @@
 		95BD85602B233AF30010363E /* IdendifierModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdendifierModel.swift; sourceTree = "<group>"; };
 		95BD85622B233B070010363E /* IdendifierResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdendifierResponse.swift; sourceTree = "<group>"; };
 		95BD85642B233BEF0010363E /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
+		95BD85672B2341DF0010363E /* ResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,6 +287,7 @@
 				95BD85552B2316990010363E /* Protocols */,
 				95BD853B2B22CFD10010363E /* HTTPMethod.swift */,
 				95BD85642B233BEF0010363E /* EmptyResponse.swift */,
+				95BD85672B2341DF0010363E /* ResultData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -753,6 +756,7 @@
 			files = (
 				95BD853C2B22CFD10010363E /* HTTPMethod.swift in Sources */,
 				95BD855F2B2325840010363E /* InputBodyObject.swift in Sources */,
+				95BD85692B2341F90010363E /* ResultData.swift in Sources */,
 				95BD85462B22D3020010363E /* ObjectMappable.swift in Sources */,
 				95BD85662B233C0A0010363E /* EmptyResponse.swift in Sources */,
 				95BD85392B22CF490010363E /* Route.swift in Sources */,
