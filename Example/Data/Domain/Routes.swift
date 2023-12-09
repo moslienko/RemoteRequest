@@ -60,4 +60,11 @@ struct Routes {
         
         _fetchComments.runRequest(completion: completion)
     }
+    
+    func uploadFile(_ file: InputFile, completion: @escaping (ResultData<Any>) -> Void, progressHandler: ((Double) -> Void)? = nil) {
+        @Route<EmptyResponse, Any>("https://postman-echo.com/post", method: .post, inputFile: file)
+        var uploadPost: URLRequest
+        
+        _uploadPost.runUploadRequest(completion: completion, progressHandler: progressHandler)
+    }
 }

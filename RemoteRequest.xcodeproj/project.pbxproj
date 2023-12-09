@@ -19,6 +19,9 @@
 		3D9C432E2274629C000A6585 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D9C432C2274629C000A6585 /* LaunchScreen.storyboard */; };
 		3D9C433422746323000A6585 /* RemoteRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C429022745894000A6585 /* RemoteRequest.framework */; };
 		3D9C433522746323000A6585 /* RemoteRequest.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9C429022745894000A6585 /* RemoteRequest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		950C1EE12B24182F00C443AC /* UploadRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950C1EE02B24182F00C443AC /* UploadRoute.swift */; };
+		950C1EE32B2418A200C443AC /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950C1EE22B2418A200C443AC /* MultipartFormData.swift */; };
+		950C1EE52B241AD100C443AC /* InputFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950C1EE42B241AD100C443AC /* InputFile.swift */; };
 		95BD85392B22CF490010363E /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85382B22CF490010363E /* Route.swift */; };
 		95BD853C2B22CFD10010363E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD853B2B22CFD10010363E /* HTTPMethod.swift */; };
 		95BD853F2B22D0E20010363E /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD853E2B22D0E20010363E /* PostModel.swift */; };
@@ -109,6 +112,9 @@
 		3D9C432A2274629C000A6585 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D9C432D2274629C000A6585 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D9C432F2274629C000A6585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		950C1EE02B24182F00C443AC /* UploadRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadRoute.swift; sourceTree = "<group>"; };
+		950C1EE22B2418A200C443AC /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
+		950C1EE42B241AD100C443AC /* InputFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFile.swift; sourceTree = "<group>"; };
 		95BD85382B22CF490010363E /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		95BD853B2B22CFD10010363E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		95BD853E2B22D0E20010363E /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
@@ -277,6 +283,7 @@
 			children = (
 				95BD853A2B22CFCA0010363E /* Models */,
 				95BD85382B22CF490010363E /* Route.swift */,
+				950C1EE02B24182F00C443AC /* UploadRoute.swift */,
 			);
 			path = RemoteRequest;
 			sourceTree = "<group>";
@@ -288,6 +295,8 @@
 				95BD853B2B22CFD10010363E /* HTTPMethod.swift */,
 				95BD85642B233BEF0010363E /* EmptyResponse.swift */,
 				95BD85672B2341DF0010363E /* ResultData.swift */,
+				950C1EE22B2418A200C443AC /* MultipartFormData.swift */,
+				950C1EE42B241AD100C443AC /* InputFile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -756,6 +765,9 @@
 			files = (
 				95BD853C2B22CFD10010363E /* HTTPMethod.swift in Sources */,
 				95BD855F2B2325840010363E /* InputBodyObject.swift in Sources */,
+				950C1EE52B241AD100C443AC /* InputFile.swift in Sources */,
+				950C1EE32B2418A200C443AC /* MultipartFormData.swift in Sources */,
+				950C1EE12B24182F00C443AC /* UploadRoute.swift in Sources */,
 				95BD85692B2341F90010363E /* ResultData.swift in Sources */,
 				95BD85462B22D3020010363E /* ObjectMappable.swift in Sources */,
 				95BD85662B233C0A0010363E /* EmptyResponse.swift in Sources */,

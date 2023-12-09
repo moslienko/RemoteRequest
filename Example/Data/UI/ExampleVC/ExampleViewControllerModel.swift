@@ -8,6 +8,7 @@
 
 import Foundation
 import RemoteRequest
+import UIKit
 
 class ExampleViewControllerModel {
     
@@ -70,6 +71,21 @@ class ExampleViewControllerModel {
                 DispatchQueue.main.async {
                     self.onFinishLoading?()
                     self.onDisplayRequestResult?("\(result)")
+                }
+            }
+        case .uploadFile:
+            guard let imgData = UIImage(named: "swift")?.pngData() else {
+                return
+            }
+            let inputFile = InputFile(data: imgData, filename: "swift.png", fileKey: "file", mimeType: "image/png")
+            routes.uploadFile(inputFile) { result in
+                DispatchQueue.main.async {
+                    self.onFinishLoading?()
+                    self.onDisplayRequestResult?("\(result)")
+                }
+            } progressHandler: { val in
+                DispatchQueue.main.async {
+                    self.onDisplayRequestResult?("Progress: \(val)")
                 }
             }
         }
