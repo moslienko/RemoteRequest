@@ -8,6 +8,19 @@
 
 import Foundation
 
+#warning("wip")
+@propertyWrapper
+public struct GET<Output: Decodable, MappableOutput> {
+    var route: Route<Output, MappableOutput>
+    
+    public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, inputFile: InputFile? = nil) {
+        self.route = Route(path, method: .get)
+    }
+    public var wrappedValue: Route<Output, MappableOutput> {
+        route
+    }
+}
+
 @propertyWrapper
 public struct Route<Output: Decodable, MappableOutput> {
     let path: String
@@ -50,7 +63,16 @@ public struct Route<Output: Decodable, MappableOutput> {
     
     public func runRequest<MappableOutput>(completion: @escaping (ResultData<MappableOutput>) -> Void) {
         let task = URLSession.shared.dataTask(with: wrappedValue) { data, response, error in
-            self.handleRequestResult(data: data, response: response, error: error, completion: completion)
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                do {
+                    let result: MappableOutput = try self.handleRequestResult(data: data, response: response)
+                    completion(.success(result))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
         }
         task.resume()
     }
@@ -59,36 +81,60 @@ public struct Route<Output: Decodable, MappableOutput> {
         let uploadTask = self.uploadTask(with: wrappedValue) { progress in
             progressHandler?(progress)
         } completionHandler: { data, response, error in
-            self.handleRequestResult(data: data, response: response, error: error, completion: completion)
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                do {
+                    let result: MappableOutput = try self.handleRequestResult(data: data, response: response)
+                    completion(.success(result))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
         }
         uploadTask?.resume()
     }
 }
 
+// MARK: - Async/await
+public extension Route {
+    
+    @available(iOS 15.0, *)
+    func runRequest() async throws -> Result<MappableOutput, Error> {
+        do {
+            let (data, response) = try await URLSession.shared.data(for: wrappedValue)
+            do {
+                let result: MappableOutput = try self.handleRequestResult(data: data, response: response)
+                return .success(result)
+            } catch {
+                return .failure(error)
+            }
+        } catch {
+            return .failure(error)
+        }
+    }
+}
+
+// MARK: - Module
 private extension Route {
     
-    func handleRequestResult<MappableOutput>(data: Data?, response: URLResponse?, error: Error?, completion: (ResultData<MappableOutput>) -> Void) {
+    func handleRequestResult<MappableOutput>(data: Data?, response: URLResponse?) throws -> MappableOutput {
         print("Response - \(response)")
-        
-        if let error = error {
-            completion(.failure(error))
-            return
-        }
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
             if let httpResponse = response as? HTTPURLResponse {
-                completion(.failure(
-                    NSError(
-                        domain: "HTTPError",
-                        code: httpResponse.statusCode,
-                        userInfo: [
-                            NSLocalizedDescriptionKey: "HTTP Error: \(httpResponse.statusCode)"
-                        ]
-                    )
-                ))
+                let error =
+                NSError(
+                    domain: "HTTPError",
+                    code: httpResponse.statusCode,
+                    userInfo: [
+                        NSLocalizedDescriptionKey: "HTTP Error: \(httpResponse.statusCode)"
+                    ]
+                )
+                throw error
             } else {
-                completion(.failure(NSError(domain: "HTTPError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unknown HTTP Error"])))
+                let error = NSError(domain: "HTTPError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unknown HTTP Error"])
+                throw error
             }
-            return
         }
         
         if let data = data {
@@ -99,15 +145,17 @@ private extension Route {
                 let decodedData = try JSONDecoder().decode(Output.self, from: data)
                 let model = self.tryCreateOutputModel(from: decodedData)
                 if let model = model as? MappableOutput {
-                    completion(.success(model))
+                    return model
                 } else {
-                    completion(.failure(NSError(domain: "MappingError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to map response"])))
+                    let error = NSError(domain: "MappingError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to map response"])
+                    throw error
                 }
             } catch {
-                completion(.failure(error))
+                throw error
             }
         } else {
-            completion(.failure(NSError(domain: "EmptyResponse", code: -1, userInfo: [NSLocalizedDescriptionKey: "Empty response"])))
+            let error = NSError(domain: "EmptyResponse", code: -1, userInfo: [NSLocalizedDescriptionKey: "Empty response"])
+            throw error
         }
     }
     

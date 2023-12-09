@@ -88,6 +88,46 @@ class ExampleViewControllerModel {
                     self.onDisplayRequestResult?("Progress: \(val)")
                 }
             }
+        case .fetchPostsAwait:
+            if #available(iOS 15.0, *) {
+                Task {
+                    let result = try await routes.fetchPostsAwait()
+                    switch result {
+                    case let .success(models):
+                        DispatchQueue.main.async {
+                            self.onFinishLoading?()
+                            self.onDisplayRequestResult?("List: \(models)")
+                        }
+                    case let .failure(failure):
+                        DispatchQueue.main.async {
+                            self.onFinishLoading?()
+                            self.onDisplayRequestResult?("Error: \(failure)")
+                        }
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.onFinishLoading?()
+                    self.onDisplayRequestResult?("Need iOS >= 15")
+                }
+            }
+        case .notFoundErr:
+            routes.fetchWithNotFoundErr { result in
+                DispatchQueue.main.async {
+                    self.onFinishLoading?()
+                    switch result {
+                    case let .success(model):
+                        self.onDisplayRequestResult?("\(model)")
+                    case let .failure(error):
+                        switch (error as NSError).code {
+                        case 404:
+                            self.onDisplayRequestResult?("⚠️ Not found")
+                        default:
+                            self.onDisplayRequestResult?("\(result)")
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 enum RequestType: CaseIterable {
-    case fetchingPosts, fetchPost, createPost, updatePost, deletePost, fetchingFilteresPosts, fetchComments, uploadFile
+    case fetchingPosts, fetchPost, createPost, updatePost, deletePost, fetchingFilteresPosts, fetchComments, uploadFile, fetchPostsAwait, notFoundErr
     
     var title: String {
         switch self {
@@ -29,6 +29,10 @@ enum RequestType: CaseIterable {
             return "[GET] Fetch post comments"
         case .uploadFile:
             return "[POST] Multiform upload data"
+        case .fetchPostsAwait:
+            return "[GET] Fetch posts async/await"
+        case .notFoundErr:
+            return "[GET] Fetch posts, 404 error"
         }
     }
 }
