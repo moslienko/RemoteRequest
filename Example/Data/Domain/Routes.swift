@@ -55,14 +55,8 @@ struct Routes {
     }
     
     func fetchComments(postId: Int,completion: @escaping (ResultData<[CommentModel]>) -> Void) {
-        //        @Route<[CommentResponse], [CommentModel]>(Routes.baseURL + "/posts/\(postId)/comments", method: .get)
-        //        var fetchComments: URLRequest
-        //
-        //        _fetchComments.runRequest(completion: completion)
-        
         @GET<[CommentResponse], [CommentModel]>(Routes.baseURL + "/posts/\(postId)/comments")
-        var request: Route
-        
+        var request: RouteRestProtocol
         request.runRequest(completion: completion)
     }
     

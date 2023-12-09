@@ -8,21 +8,8 @@
 
 import Foundation
 
-#warning("wip")
 @propertyWrapper
-public struct GET<Output: Decodable, MappableOutput> {
-    var route: Route<Output, MappableOutput>
-    
-    public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, inputFile: InputFile? = nil) {
-        self.route = Route(path, method: .get)
-    }
-    public var wrappedValue: Route<Output, MappableOutput> {
-        route
-    }
-}
-
-@propertyWrapper
-public struct Route<Output: Decodable, MappableOutput> {
+public struct Route<Output: Decodable, MappableOutput>: RouteRestProtocol, RouteUploadProtocol {
     let path: String
     let method: HTTPMethod
     let headers: [String: String]
@@ -94,13 +81,10 @@ public struct Route<Output: Decodable, MappableOutput> {
         }
         uploadTask?.resume()
     }
-}
-
-// MARK: - Async/await
-public extension Route {
     
+    // MARK: - Async/await
     @available(iOS 15.0, *)
-    func runRequest() async throws -> Result<MappableOutput, Error> {
+    public func runRequest<MappableOutput>() async throws -> Result<MappableOutput, Error> {
         do {
             let (data, response) = try await URLSession.shared.data(for: wrappedValue)
             do {
