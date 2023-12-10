@@ -27,6 +27,9 @@
 		950C1EED2B248EEC00C443AC /* UploadRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950C1EEC2B248EEC00C443AC /* UploadRequestProtocol.swift */; };
 		950C1EEF2B248FB100C443AC /* RouteRestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950C1EEE2B248FB100C443AC /* RouteRestProtocol.swift */; };
 		950C1EF12B248FC400C443AC /* RouteUploadProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950C1EF02B248FC400C443AC /* RouteUploadProtocol.swift */; };
+		958499992B25801E0012A809 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958499982B25801E0012A809 /* ErrorResponse.swift */; };
+		9584999B2B2581630012A809 /* RestErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9584999A2B2581630012A809 /* RestErrorResponse.swift */; };
+		9584999E2B258B470012A809 /* RestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9584999D2B258B470012A809 /* RestError.swift */; };
 		95BD85392B22CF490010363E /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85382B22CF490010363E /* Route.swift */; };
 		95BD853C2B22CFD10010363E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD853B2B22CFD10010363E /* HTTPMethod.swift */; };
 		95BD853F2B22D0E20010363E /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD853E2B22D0E20010363E /* PostModel.swift */; };
@@ -125,6 +128,9 @@
 		950C1EEC2B248EEC00C443AC /* UploadRequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadRequestProtocol.swift; sourceTree = "<group>"; };
 		950C1EEE2B248FB100C443AC /* RouteRestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRestProtocol.swift; sourceTree = "<group>"; };
 		950C1EF02B248FC400C443AC /* RouteUploadProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteUploadProtocol.swift; sourceTree = "<group>"; };
+		958499982B25801E0012A809 /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
+		9584999A2B2581630012A809 /* RestErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestErrorResponse.swift; sourceTree = "<group>"; };
+		9584999D2B258B470012A809 /* RestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestError.swift; sourceTree = "<group>"; };
 		95BD85382B22CF490010363E /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		95BD853B2B22CFD10010363E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		95BD853E2B22D0E20010363E /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
@@ -308,6 +314,7 @@
 				95BD85672B2341DF0010363E /* ResultData.swift */,
 				950C1EE22B2418A200C443AC /* MultipartFormData.swift */,
 				950C1EE42B241AD100C443AC /* InputFile.swift */,
+				9584999A2B2581630012A809 /* RestErrorResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -329,6 +336,7 @@
 				95BD85422B22D2260010363E /* PostResponse.swift */,
 				95BD855B2B231AFF0010363E /* CommentResponse.swift */,
 				95BD85622B233B070010363E /* IdendifierResponse.swift */,
+				958499982B25801E0012A809 /* ErrorResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -379,6 +387,7 @@
 				950C1EEC2B248EEC00C443AC /* UploadRequestProtocol.swift */,
 				950C1EEE2B248FB100C443AC /* RouteRestProtocol.swift */,
 				950C1EF02B248FC400C443AC /* RouteUploadProtocol.swift */,
+				9584999D2B258B470012A809 /* RestError.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -780,8 +789,10 @@
 			files = (
 				95BD853C2B22CFD10010363E /* HTTPMethod.swift in Sources */,
 				950C1EE92B248E3A00C443AC /* HTTPRequestProtocol.swift in Sources */,
+				9584999E2B258B470012A809 /* RestError.swift in Sources */,
 				95BD855F2B2325840010363E /* InputBodyObject.swift in Sources */,
 				950C1EE52B241AD100C443AC /* InputFile.swift in Sources */,
+				9584999B2B2581630012A809 /* RestErrorResponse.swift in Sources */,
 				950C1EE32B2418A200C443AC /* MultipartFormData.swift in Sources */,
 				950C1EE12B24182F00C443AC /* UploadRoute.swift in Sources */,
 				950C1EF12B248FC400C443AC /* RouteUploadProtocol.swift in Sources */,
@@ -857,6 +868,7 @@
 				95BD854F2B23110E0010363E /* ExampleViewControllerModel.swift in Sources */,
 				95BD854B2B22F10C0010363E /* RequestType.swift in Sources */,
 				95BD85582B2318290010363E /* CreatePostRequest.swift in Sources */,
+				958499992B25801E0012A809 /* ErrorResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

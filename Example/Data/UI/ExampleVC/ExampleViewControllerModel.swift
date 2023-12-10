@@ -128,6 +128,22 @@ class ExampleViewControllerModel {
                     }
                 }
             }
+        case .customErr:
+            routes.fetchWithCustomError(name: "Ann") { result in
+                DispatchQueue.main.async {
+                    self.onFinishLoading?()
+                    switch result {
+                    case let .success(model):
+                        self.onDisplayRequestResult?("\(model)")
+                    case let .failure(error):
+                        if let customError = error as? ErrorResponse {
+                            self.onDisplayRequestResult?("Error: \(customError.error)")
+                        } else {
+                            self.onDisplayRequestResult?("\(error)")
+                        }
+                    }
+                }
+            }
         }
     }
 }

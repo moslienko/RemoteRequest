@@ -9,12 +9,12 @@
 import Foundation
 
 @propertyWrapper
-public struct GET<Output: Decodable, MappableOutput>: HTTPRequestProtocol {
+public struct GET<Output: Decodable, MappableOutput, ErrorType: RestError>: HTTPRequestProtocol {
     
     public var route: RouteRestProtocol
     
     public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil) {
-        self.route = Route<Output, MappableOutput>(path, method: .get, headers: headers, parameters: parameters, body: body)
+        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .get, headers: headers, parameters: parameters, body: body)
     }
     
     public var wrappedValue: RouteRestProtocol {
@@ -23,12 +23,12 @@ public struct GET<Output: Decodable, MappableOutput>: HTTPRequestProtocol {
 }
 
 @propertyWrapper
-public struct POST<Output: Decodable, MappableOutput>: HTTPRequestProtocol {
+public struct POST<Output: Decodable, MappableOutput, ErrorType: RestError>: HTTPRequestProtocol {
     
     public var route: RouteRestProtocol
     
     public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil) {
-        self.route = Route<Output, MappableOutput>(path, method: .post, headers: headers, parameters: parameters, body: body)
+        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .post, headers: headers, parameters: parameters, body: body)
     }
     
     public var wrappedValue: RouteRestProtocol {
@@ -37,12 +37,12 @@ public struct POST<Output: Decodable, MappableOutput>: HTTPRequestProtocol {
 }
 
 @propertyWrapper
-public struct PATCH<Output: Decodable, MappableOutput>: HTTPRequestProtocol {
+public struct PATCH<Output: Decodable, MappableOutput, ErrorType: RestError>: HTTPRequestProtocol {
     
     public var route: RouteRestProtocol
     
     public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil) {
-        self.route = Route<Output, MappableOutput>(path, method: .patch, headers: headers, parameters: parameters, body: body)
+        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .patch, headers: headers, parameters: parameters, body: body)
     }
     
     public var wrappedValue: RouteRestProtocol {
@@ -51,12 +51,12 @@ public struct PATCH<Output: Decodable, MappableOutput>: HTTPRequestProtocol {
 }
 
 @propertyWrapper
-public struct PUT<Output: Decodable, MappableOutput>: HTTPRequestProtocol {
+public struct PUT<Output: Decodable, MappableOutput, ErrorType: RestError>: HTTPRequestProtocol {
     
     public var route: RouteRestProtocol
     
     public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil) {
-        self.route = Route<Output, MappableOutput>(path, method: .put, headers: headers, parameters: parameters, body: body)
+        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .put, headers: headers, parameters: parameters, body: body)
     }
     
     public var wrappedValue: RouteRestProtocol {
@@ -65,12 +65,12 @@ public struct PUT<Output: Decodable, MappableOutput>: HTTPRequestProtocol {
 }
 
 @propertyWrapper
-public struct DELETE<Output: Decodable, MappableOutput>: HTTPRequestProtocol {
+public struct DELETE<Output: Decodable, MappableOutput, ErrorType: RestError>: HTTPRequestProtocol {
     
     public var route: RouteRestProtocol
     
     public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil) {
-        self.route = Route<Output, MappableOutput>(path, method: .delete, headers: headers, parameters: parameters, body: body)
+        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .delete, headers: headers, parameters: parameters, body: body)
     }
     
     public var wrappedValue: RouteRestProtocol {
@@ -79,12 +79,12 @@ public struct DELETE<Output: Decodable, MappableOutput>: HTTPRequestProtocol {
 }
 
 @propertyWrapper
-public struct UPLOAD<Output: Decodable, MappableOutput>: UploadRequestProtocol {
+public struct UPLOAD<Output: Decodable, MappableOutput, ErrorType: RestError>: UploadRequestProtocol {
     
     public var route: RouteUploadProtocol
     
     public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, inputFile: InputFile) {
-        self.route = Route<Output, MappableOutput>(path, method: .post, headers: headers, parameters: parameters, inputFile: inputFile)
+        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .post, headers: headers, parameters: parameters, inputFile: inputFile)
     }
     
     public var wrappedValue: RouteUploadProtocol {

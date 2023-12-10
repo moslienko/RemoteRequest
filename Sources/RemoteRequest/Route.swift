@@ -9,7 +9,7 @@
 import Foundation
 
 @propertyWrapper
-public struct Route<Output: Decodable, MappableOutput>: RouteRestProtocol, RouteUploadProtocol {
+public struct Route<Output: Decodable, MappableOutput, ErrorType: RestError>: RouteRestProtocol, RouteUploadProtocol {
     let path: String
     let method: HTTPMethod
     let headers: [String: String]
@@ -114,6 +114,14 @@ private extension Route {
                         NSLocalizedDescriptionKey: "HTTP Error: \(httpResponse.statusCode)"
                     ]
                 )
+                
+                if let data = data {
+                    //Try parce error
+                    if let decodedError = try? JSONDecoder().decode(ErrorType.self, from: data) {
+                        throw decodedError
+                    }
+                    throw error
+                }
                 throw error
             } else {
                 let error = NSError(domain: "HTTPError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unknown HTTP Error"])
