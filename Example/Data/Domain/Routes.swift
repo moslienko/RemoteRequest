@@ -60,6 +60,16 @@ struct Routes {
         request.runRequest(completion: completion)
     }
     
+    func fetchCommentsWithCache(postId: Int,completion: @escaping (ResultData<[CommentModel]>) -> Void) {
+        @GET<[CommentResponse], [CommentModel], RegRestErrorResponse>(Routes.baseURL + "/posts/\(postId)/comments", isNeedUseCache: true)
+        var request: RouteRestProtocol
+        
+        CacheManager.shared.shouldAutoCleanCache = true
+        CacheManager.shared.cacheExpirationInterval = 1600
+                
+        request.runRequest(completion: completion)
+    }
+    
     func uploadFile(_ file: InputFile, completion: @escaping (ResultData<Any>) -> Void, progressHandler: ((Double) -> Void)? = nil) {
         @Route<EmptyResponse, Any, RegRestErrorResponse>("https://postman-echo.com/post", method: .post, inputFile: file)
         var uploadPost: URLRequest

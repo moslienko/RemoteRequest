@@ -30,6 +30,7 @@
 		958499992B25801E0012A809 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958499982B25801E0012A809 /* ErrorResponse.swift */; };
 		9584999B2B2581630012A809 /* RestErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9584999A2B2581630012A809 /* RestErrorResponse.swift */; };
 		9584999E2B258B470012A809 /* RestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9584999D2B258B470012A809 /* RestError.swift */; };
+		95A6129B2B25CCBE00209169 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A6129A2B25CCBE00209169 /* CacheManager.swift */; };
 		95BD85392B22CF490010363E /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85382B22CF490010363E /* Route.swift */; };
 		95BD853C2B22CFD10010363E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD853B2B22CFD10010363E /* HTTPMethod.swift */; };
 		95BD853F2B22D0E20010363E /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD853E2B22D0E20010363E /* PostModel.swift */; };
@@ -131,6 +132,7 @@
 		958499982B25801E0012A809 /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
 		9584999A2B2581630012A809 /* RestErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestErrorResponse.swift; sourceTree = "<group>"; };
 		9584999D2B258B470012A809 /* RestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestError.swift; sourceTree = "<group>"; };
+		95A6129A2B25CCBE00209169 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		95BD85382B22CF490010363E /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		95BD853B2B22CFD10010363E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		95BD853E2B22D0E20010363E /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				95BD85382B22CF490010363E /* Route.swift */,
 				950C1EE02B24182F00C443AC /* UploadRoute.swift */,
 				950C1EEA2B248EBD00C443AC /* Rest.swift */,
+				95A6129A2B25CCBE00209169 /* CacheManager.swift */,
 			);
 			path = RemoteRequest;
 			sourceTree = "<group>";
@@ -790,6 +793,7 @@
 				95BD853C2B22CFD10010363E /* HTTPMethod.swift in Sources */,
 				950C1EE92B248E3A00C443AC /* HTTPRequestProtocol.swift in Sources */,
 				9584999E2B258B470012A809 /* RestError.swift in Sources */,
+				95A6129B2B25CCBE00209169 /* CacheManager.swift in Sources */,
 				95BD855F2B2325840010363E /* InputBodyObject.swift in Sources */,
 				950C1EE52B241AD100C443AC /* InputFile.swift in Sources */,
 				9584999B2B2581630012A809 /* RestErrorResponse.swift in Sources */,

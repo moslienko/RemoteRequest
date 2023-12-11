@@ -17,6 +17,9 @@ public struct Route<Output: Decodable, MappableOutput, ErrorType: RestError>: Ro
     var body: InputBodyObject?
     var inputFile: InputFile?
     
+    //Cache
+    var isNeedUseCache: Bool
+    
     public var wrappedValue: URLRequest {
         var urlComponents = URLComponents(string: path)
         if let parameters = parameters {
@@ -39,22 +42,31 @@ public struct Route<Output: Decodable, MappableOutput, ErrorType: RestError>: Ro
         return request
     }
     
-    public init(_ path: String, method: HTTPMethod, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, inputFile: InputFile? = nil) {
+    public init(_ path: String, method: HTTPMethod, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, inputFile: InputFile? = nil, isNeedUseCache: Bool = false) {
         self.path = path
         self.method = method
         self.headers = headers
         self.parameters = parameters
         self.body = body
         self.inputFile = inputFile
+        self.isNeedUseCache = isNeedUseCache
     }
     
     public func runRequest<MappableOutput>(completion: @escaping (ResultData<MappableOutput>) -> Void) {
+        if let cache = self.tryGetCash() as? MappableOutput {
+            completion(.success(cache))
+            return
+        }
+        
         let task = URLSession.shared.dataTask(with: wrappedValue) { data, response, error in
             if let error = error {
                 completion(.failure(error))
             } else {
                 do {
                     let result: MappableOutput = try self.handleRequestResult(data: data, response: response)
+                    if let data = data {
+                        self.trySaveCache(data)
+                    }
                     completion(.success(result))
                 } catch {
                     completion(.failure(error))
@@ -83,12 +95,18 @@ public struct Route<Output: Decodable, MappableOutput, ErrorType: RestError>: Ro
     }
     
     // MARK: - Async/await
+    
     @available(iOS 15.0, *)
     public func runRequest<MappableOutput>() async throws -> Result<MappableOutput, Error> {
+        if let cache = self.tryGetCash() as? MappableOutput {
+            return .success(cache)
+        }
+        
         do {
             let (data, response) = try await URLSession.shared.data(for: wrappedValue)
             do {
                 let result: MappableOutput = try self.handleRequestResult(data: data, response: response)
+                trySaveCache(data)
                 return .success(result)
             } catch {
                 return .failure(error)
@@ -148,6 +166,32 @@ private extension Route {
         } else {
             let error = NSError(domain: "EmptyResponse", code: -1, userInfo: [NSLocalizedDescriptionKey: "Empty response"])
             throw error
+        }
+    }
+    
+    func tryGetCash() -> MappableOutput? {
+        if self.isNeedUseCache,
+           let url = self.wrappedValue.url,
+           let cashedData: MappableOutput = self.getCashMappableObject(url: url) {
+            return cashedData
+        }
+        return nil
+    }
+    
+    func getCashMappableObject<MappableOutput>(url: URL) -> MappableOutput? {
+        if let cachedData = CacheManager.shared.fetchDataFromCache(for: url),
+           let decodedData = try? JSONDecoder().decode(Output.self, from: cachedData) {
+            let model = self.tryCreateOutputModel(from: decodedData)
+            return model as? MappableOutput
+        }
+        
+        return nil
+    }
+    
+    func trySaveCache(_ data: Data) {
+        if self.isNeedUseCache,
+           let url = self.wrappedValue.url {
+            CacheManager.shared.saveDataToCache(data, for: url)
         }
     }
     

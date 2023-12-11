@@ -144,6 +144,13 @@ class ExampleViewControllerModel {
                     }
                 }
             }
+        case .fetchCommentsWitchCash:
+            routes.fetchCommentsWithCache(postId: 23) { result in
+                DispatchQueue.main.async {
+                    self.onFinishLoading?()
+                    self.onDisplayRequestResult?("\(result)")
+                }
+            }
         }
     }
 }
