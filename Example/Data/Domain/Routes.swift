@@ -12,13 +12,12 @@ import RemoteRequest
 struct Routes {
     private static var baseURL = "https://jsonplaceholder.typicode.com"
     
-    @Route<[PostResponse], [PostModel], RegRestErrorResponse>(Routes.baseURL + "/posts", method: .get)
+    @Route<[PostResponse], [PostModel], RegRestErrorResponse>(Routes.baseURL + "/posts", method: .get, headers: Routes.SampleHeaders().header)
     var fetchPosts: URLRequest
     
     func fetchPost(postID: Int, completion: @escaping (ResultData<PostModel>) -> Void) {
         @Route<PostResponse, PostModel, RegRestErrorResponse>(Routes.baseURL + "/posts/\(postID)", method: .get)
         var fetchPost: URLRequest
-        
         _fetchPost.runRequest(completion: completion)
     }
     
@@ -66,7 +65,7 @@ struct Routes {
         
         CacheManager.shared.shouldAutoCleanCache = true
         CacheManager.shared.cacheExpirationInterval = 1600
-                
+        
         request.runRequest(completion: completion)
     }
     
@@ -96,5 +95,18 @@ struct Routes {
         @GET<PostResponse, PostModel, ErrorResponse>("https://api.genderize.io/?named=\(name)")
         var request: RouteRestProtocol
         request.runRequest(completion: completion)
+    }
+}
+
+private extension Routes {
+    
+    struct SampleHeaders {
+        @Header(.jwtAuth("eyJhbG"))
+        @Header(.custom(key: "AppClient", value: "iOS"))
+        var header: [String: String] = [:]
+        
+        init() {
+            self.header = [:]
+        }
     }
 }

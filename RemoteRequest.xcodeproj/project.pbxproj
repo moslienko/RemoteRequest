@@ -27,6 +27,7 @@
 		950C1EED2B248EEC00C443AC /* UploadRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950C1EEC2B248EEC00C443AC /* UploadRequestProtocol.swift */; };
 		950C1EEF2B248FB100C443AC /* RouteRestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950C1EEE2B248FB100C443AC /* RouteRestProtocol.swift */; };
 		950C1EF12B248FC400C443AC /* RouteUploadProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950C1EF02B248FC400C443AC /* RouteUploadProtocol.swift */; };
+		9539F85A2B2818DE0042B05A /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9539F8592B2818DE0042B05A /* Header.swift */; };
 		958499992B25801E0012A809 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958499982B25801E0012A809 /* ErrorResponse.swift */; };
 		9584999B2B2581630012A809 /* RestErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9584999A2B2581630012A809 /* RestErrorResponse.swift */; };
 		9584999E2B258B470012A809 /* RestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9584999D2B258B470012A809 /* RestError.swift */; };
@@ -48,6 +49,8 @@
 		95BD85632B233B070010363E /* IdendifierResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85622B233B070010363E /* IdendifierResponse.swift */; };
 		95BD85662B233C0A0010363E /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85642B233BEF0010363E /* EmptyResponse.swift */; };
 		95BD85692B2341F90010363E /* ResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD85672B2341DF0010363E /* ResultData.swift */; };
+		95F887242B2946EC002366DC /* HeaderBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F887232B2946EC002366DC /* HeaderBuilder.swift */; };
+		95F887292B294BE0002366DC /* Appendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F887282B294BE0002366DC /* Appendable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +132,7 @@
 		950C1EEC2B248EEC00C443AC /* UploadRequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadRequestProtocol.swift; sourceTree = "<group>"; };
 		950C1EEE2B248FB100C443AC /* RouteRestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRestProtocol.swift; sourceTree = "<group>"; };
 		950C1EF02B248FC400C443AC /* RouteUploadProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteUploadProtocol.swift; sourceTree = "<group>"; };
+		9539F8592B2818DE0042B05A /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		958499982B25801E0012A809 /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
 		9584999A2B2581630012A809 /* RestErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestErrorResponse.swift; sourceTree = "<group>"; };
 		9584999D2B258B470012A809 /* RestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestError.swift; sourceTree = "<group>"; };
@@ -150,6 +154,8 @@
 		95BD85622B233B070010363E /* IdendifierResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdendifierResponse.swift; sourceTree = "<group>"; };
 		95BD85642B233BEF0010363E /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
 		95BD85672B2341DF0010363E /* ResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultData.swift; sourceTree = "<group>"; };
+		95F887232B2946EC002366DC /* HeaderBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderBuilder.swift; sourceTree = "<group>"; };
+		95F887282B294BE0002366DC /* Appendable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appendable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,6 +317,7 @@
 		95BD853A2B22CFCA0010363E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				95F887222B2946DD002366DC /* Headers */,
 				95BD85552B2316990010363E /* Protocols */,
 				95BD853B2B22CFD10010363E /* HTTPMethod.swift */,
 				95BD85642B233BEF0010363E /* EmptyResponse.swift */,
@@ -402,6 +409,16 @@
 				95BD85592B23187C0010363E /* UpdatePostRequest.swift */,
 			);
 			path = Requests;
+			sourceTree = "<group>";
+		};
+		95F887222B2946DD002366DC /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				9539F8592B2818DE0042B05A /* Header.swift */,
+				95F887232B2946EC002366DC /* HeaderBuilder.swift */,
+				95F887282B294BE0002366DC /* Appendable.swift */,
+			);
+			path = Headers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -800,12 +817,15 @@
 				950C1EE32B2418A200C443AC /* MultipartFormData.swift in Sources */,
 				950C1EE12B24182F00C443AC /* UploadRoute.swift in Sources */,
 				950C1EF12B248FC400C443AC /* RouteUploadProtocol.swift in Sources */,
+				9539F85A2B2818DE0042B05A /* Header.swift in Sources */,
 				950C1EEB2B248EBD00C443AC /* Rest.swift in Sources */,
 				95BD85692B2341F90010363E /* ResultData.swift in Sources */,
 				95BD85462B22D3020010363E /* ObjectMappable.swift in Sources */,
 				95BD85662B233C0A0010363E /* EmptyResponse.swift in Sources */,
+				95F887292B294BE0002366DC /* Appendable.swift in Sources */,
 				950C1EED2B248EEC00C443AC /* UploadRequestProtocol.swift in Sources */,
 				95BD85392B22CF490010363E /* Route.swift in Sources */,
+				95F887242B2946EC002366DC /* HeaderBuilder.swift in Sources */,
 				950C1EEF2B248FB100C443AC /* RouteRestProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
