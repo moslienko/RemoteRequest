@@ -17,24 +17,27 @@ public struct Route<Output: Decodable, MappableOutput, ErrorType: RestError>: Ro
     var body: InputBodyObject?
     var inputFile: InputFile?
     
-    //Cache
-    var isNeedUseCache: Bool
+    var options: RouteOptions
     
     public var wrappedValue: URLRequest {
         getRequest()
     }
     
-    public init(_ path: String, method: HTTPMethod, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, inputFile: InputFile? = nil, isNeedUseCache: Bool = false) {
+    public init(_ path: String, method: HTTPMethod, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, inputFile: InputFile? = nil, options: RouteOptions = RouteSessionOptions.current.options) {
         self.path = path
         self.method = method
         self.headers = headers
         self.parameters = parameters
         self.body = body
         self.inputFile = inputFile
-        self.isNeedUseCache = isNeedUseCache
+        self.options = options
     }
     
     public func runRequest<MappableOutput>(completion: @escaping (ResultData<MappableOutput>) -> Void) {
+        if options.loggingLevels == .all {
+            wrappedValue.debug()
+        }
+        
         if let cache = self.tryGetCash() as? MappableOutput {
             completion(.success(cache))
             return
@@ -59,6 +62,10 @@ public struct Route<Output: Decodable, MappableOutput, ErrorType: RestError>: Ro
     }
     
     public func runUploadRequest<MappableOutput>(completion: @escaping (ResultData<MappableOutput>) -> Void, progressHandler: ((Double) -> Void)? = nil) {
+        if options.loggingLevels == .all {
+            wrappedValue.debug()
+        }
+        
         let uploadTask = self.uploadTask(with: wrappedValue) { progress in
             progressHandler?(progress)
         } completionHandler: { data, response, error in
@@ -83,13 +90,19 @@ public struct Route<Output: Decodable, MappableOutput, ErrorType: RestError>: Ro
         }
         
         guard let url = urlComponents?.url else {
-            print("Invalid URL - \(urlComponents)")
+            print("Invalid URL - \(String(describing: urlComponents))")
             return URLRequest(url: URL(fileURLWithPath: ""))
         }
+        var requestHeaders = headers
+        requestHeaders.merge(options.additionalHeaders) { (_, new) in new }
         
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
-        request.allHTTPHeaderFields = headers
+        request.allHTTPHeaderFields = requestHeaders
+        request.timeoutInterval = options.timeoutInterval
+        if options.isCompressionEnabled {
+            request.setValue("gzip, deflate", forHTTPHeaderField: "Accept-Encoding")
+        }
         
         if method != .get,
            let body = body {
@@ -103,6 +116,10 @@ public struct Route<Output: Decodable, MappableOutput, ErrorType: RestError>: Ro
     
     @available(iOS 15.0, *)
     public func runRequest<MappableOutput>() async throws -> Result<MappableOutput, Error> {
+        if options.loggingLevels == .all {
+            wrappedValue.debug()
+        }
+        
         if let cache = self.tryGetCash() as? MappableOutput {
             return .success(cache)
         }
@@ -126,7 +143,15 @@ public struct Route<Output: Decodable, MappableOutput, ErrorType: RestError>: Ro
 private extension Route {
     
     func handleRequestResult<MappableOutput>(data: Data?, response: URLResponse?) throws -> MappableOutput {
-        print("Response - \(response)")
+        if options.loggingLevels == .all {
+            print("Response - \(String(describing: response))")
+        }
+        if let data = data,
+           let bodyStr = String(data: data, encoding: .utf8) {
+            if options.loggingLevels == .all {
+                print("Result body - \(bodyStr)")
+            }
+        }
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
             if let httpResponse = response as? HTTPURLResponse {
                 let error =
@@ -137,10 +162,15 @@ private extension Route {
                         NSLocalizedDescriptionKey: "HTTP Error: \(httpResponse.statusCode)"
                     ]
                 )
-                
+                if options.loggingLevels == .all || options.loggingLevels == .errors {
+                    print(error.localizedDescription)
+                }
                 if let data = data {
                     //Try parce error
                     if let decodedError = try? JSONDecoder().decode(ErrorType.self, from: data) {
+                        if options.loggingLevels == .all || options.loggingLevels == .errors {
+                            print("Error - \(decodedError.localizedDescription)")
+                        }
                         throw decodedError
                     }
                     throw error
@@ -148,14 +178,14 @@ private extension Route {
                 throw error
             } else {
                 let error = NSError(domain: "HTTPError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unknown HTTP Error"])
+                if options.loggingLevels == .all || options.loggingLevels == .errors {
+                    print(error.localizedDescription)
+                }
                 throw error
             }
         }
         
         if let data = data {
-            if let bodyStr = String(data: data, encoding: .utf8) {
-                print("Result body - \(bodyStr)")
-            }
             do {
                 let decodedData = try JSONDecoder().decode(Output.self, from: data)
                 let model = self.tryCreateOutputModel(from: decodedData)
@@ -163,6 +193,9 @@ private extension Route {
                     return model
                 } else {
                     let error = NSError(domain: "MappingError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to map response"])
+                    if options.loggingLevels == .all || options.loggingLevels == .errors {
+                        print(error.localizedDescription)
+                    }
                     throw error
                 }
             } catch {
@@ -170,12 +203,15 @@ private extension Route {
             }
         } else {
             let error = NSError(domain: "EmptyResponse", code: -1, userInfo: [NSLocalizedDescriptionKey: "Empty response"])
+            if options.loggingLevels == .all || options.loggingLevels == .errors {
+                print(error.localizedDescription)
+            }
             throw error
         }
     }
     
     func tryGetCash() -> MappableOutput? {
-        if self.isNeedUseCache,
+        if options.isNeedUseCache,
            let url = self.wrappedValue.url,
            let cashedData: MappableOutput = self.getCashMappableObject(url: url) {
             return cashedData
@@ -194,7 +230,7 @@ private extension Route {
     }
     
     func trySaveCache(_ data: Data) {
-        if self.isNeedUseCache,
+        if options.isNeedUseCache,
            let url = self.wrappedValue.url {
             CacheManager.shared.saveDataToCache(data, for: url)
         }

@@ -19,6 +19,8 @@ class ExampleViewControllerModel {
     func handleRequest(_ request: RequestType) {
         let routes = Routes()
         
+        RouteSessionOptions.current.options.loggingLevels = .all
+        
         DispatchQueue.main.async {
             self.onBeginLoading?()
         }

@@ -14,5 +14,5 @@ public protocol HTTPRequestProtocol {
     
     var route: RouteRestProtocol { get set } //Route<Output, MappableOutput> { get }
     
-    init(_ path: String, headers: [String: String], parameters: [String: Any]?, body: InputBodyObject?, isNeedUseCache: Bool)
+    init(_ path: String, headers: [String: String], parameters: [String: Any]?, body: InputBodyObject?, options: RouteOptions)
 }

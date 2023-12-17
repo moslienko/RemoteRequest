@@ -14,5 +14,5 @@ public protocol UploadRequestProtocol {
     
     var route: RouteUploadProtocol {get set} //Route<Output, MappableOutput> { get }
     
-    init(_ path: String, headers: [String: String], parameters: [String: Any]?, inputFile: InputFile)
+    init(_ path: String, headers: [String: String], parameters: [String: Any]?, inputFile: InputFile, options: RouteOptions)
 }

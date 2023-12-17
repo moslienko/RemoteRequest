@@ -13,8 +13,8 @@ public struct GET<Output: Decodable, MappableOutput, ErrorType: RestError>: HTTP
     
     public var route: RouteRestProtocol
     
-    public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, isNeedUseCache: Bool = false) {
-        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .get, headers: headers, parameters: parameters, body: body, isNeedUseCache: isNeedUseCache)
+    public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, options: RouteOptions = RouteSessionOptions.current.options) {
+        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .get, headers: headers, parameters: parameters, body: body, options: options)
     }
     
     public var wrappedValue: RouteRestProtocol {
@@ -27,8 +27,8 @@ public struct POST<Output: Decodable, MappableOutput, ErrorType: RestError>: HTT
     
     public var route: RouteRestProtocol
     
-    public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, isNeedUseCache: Bool = false) {
-        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .post, headers: headers, parameters: parameters, body: body, isNeedUseCache: isNeedUseCache)
+    public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, options: RouteOptions = RouteSessionOptions.current.options) {
+        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .post, headers: headers, parameters: parameters, body: body, options: options)
     }
     
     public var wrappedValue: RouteRestProtocol {
@@ -41,8 +41,8 @@ public struct PATCH<Output: Decodable, MappableOutput, ErrorType: RestError>: HT
     
     public var route: RouteRestProtocol
     
-    public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, isNeedUseCache: Bool = false) {
-        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .patch, headers: headers, parameters: parameters, body: body, isNeedUseCache: isNeedUseCache)
+    public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, options: RouteOptions = RouteSessionOptions.current.options) {
+        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .patch, headers: headers, parameters: parameters, body: body, options: options)
     }
     
     public var wrappedValue: RouteRestProtocol {
@@ -55,8 +55,8 @@ public struct PUT<Output: Decodable, MappableOutput, ErrorType: RestError>: HTTP
     
     public var route: RouteRestProtocol
     
-    public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, isNeedUseCache: Bool = false) {
-        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .put, headers: headers, parameters: parameters, body: body, isNeedUseCache: isNeedUseCache)
+    public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, options: RouteOptions = RouteSessionOptions.current.options) {
+        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .put, headers: headers, parameters: parameters, body: body, options: options)
     }
     
     public var wrappedValue: RouteRestProtocol {
@@ -69,8 +69,8 @@ public struct DELETE<Output: Decodable, MappableOutput, ErrorType: RestError>: H
     
     public var route: RouteRestProtocol
     
-    public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, isNeedUseCache: Bool = false) {
-        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .delete, headers: headers, parameters: parameters, body: body, isNeedUseCache: isNeedUseCache)
+    public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, options: RouteOptions = RouteSessionOptions.current.options) {
+        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .delete, headers: headers, parameters: parameters, body: body, options: options)
     }
     
     public var wrappedValue: RouteRestProtocol {
@@ -83,8 +83,8 @@ public struct UPLOAD<Output: Decodable, MappableOutput, ErrorType: RestError>: U
     
     public var route: RouteUploadProtocol
     
-    public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, inputFile: InputFile) {
-        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .post, headers: headers, parameters: parameters, inputFile: inputFile)
+    public init(_ path: String, headers: [String: String] = [:], parameters: [String: Any]? = nil, inputFile: InputFile, options: RouteOptions = RouteSessionOptions.current.options) {
+        self.route = Route<Output, MappableOutput, ErrorType>(path, method: .post, headers: headers, parameters: parameters, inputFile: inputFile, options: options)
     }
     
     public var wrappedValue: RouteUploadProtocol {

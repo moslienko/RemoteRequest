@@ -60,7 +60,7 @@ struct Routes {
     }
     
     func fetchCommentsWithCache(postId: Int,completion: @escaping (ResultData<[CommentModel]>) -> Void) {
-        @GET<[CommentResponse], [CommentModel], RegRestErrorResponse>(Routes.baseURL + "/posts/\(postId)/comments", isNeedUseCache: true)
+        @GET<[CommentResponse], [CommentModel], RegRestErrorResponse>(Routes.baseURL + "/posts/\(postId)/comments", options: RouteOptions(isNeedUseCache: true))
         var request: RouteRestProtocol
         
         CacheManager.shared.shouldAutoCleanCache = true
@@ -92,7 +92,7 @@ struct Routes {
     }
     
     func fetchWithCustomError(name: String,completion: @escaping (ResultData<PostModel>) -> Void) {
-        @GET<PostResponse, PostModel, ErrorResponse>("https://api.genderize.io/?named=\(name)")
+        @GET<PostResponse, PostModel, ErrorResponse>("https://api.genderize.io/?named=\(name)", options: RouteOptions(loggingLevels: .errors))
         var request: RouteRestProtocol
         request.runRequest(completion: completion)
     }
