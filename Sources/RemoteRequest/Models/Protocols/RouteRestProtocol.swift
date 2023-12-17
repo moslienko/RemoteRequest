@@ -10,6 +10,7 @@ import Foundation
 
 public protocol RouteRestProtocol {
     func runRequest<MappableOutput>(completion: @escaping (ResultData<MappableOutput>) -> Void)
+    func getRequest() -> URLRequest
     
     @available(iOS 15.0, *)
     func runRequest<MappableOutput>() async throws -> Result<MappableOutput, Error>

@@ -21,25 +21,7 @@ public struct Route<Output: Decodable, MappableOutput, ErrorType: RestError>: Ro
     var isNeedUseCache: Bool
     
     public var wrappedValue: URLRequest {
-        var urlComponents = URLComponents(string: path)
-        if let parameters = parameters {
-            urlComponents?.queryItems = parameters.map { URLQueryItem(name: $0.key, value: String(describing: $0.value)) }
-        }
-        
-        guard let url = urlComponents?.url else {
-            fatalError("Invalid URL")
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = method.rawValue
-        request.allHTTPHeaderFields = headers
-        
-        if method != .get,
-           let body = body {
-            request.httpBody = try? JSONEncoder().encode(body)
-        }
-        
-        return request
+        getRequest()
     }
     
     public init(_ path: String, method: HTTPMethod, headers: [String: String] = [:], parameters: [String: Any]? = nil, body: InputBodyObject? = nil, inputFile: InputFile? = nil, isNeedUseCache: Bool = false) {
@@ -92,6 +74,29 @@ public struct Route<Output: Decodable, MappableOutput, ErrorType: RestError>: Ro
             }
         }
         uploadTask?.resume()
+    }
+    
+    public func getRequest() -> URLRequest {
+        var urlComponents = URLComponents(string: path)
+        if let parameters = parameters {
+            urlComponents?.queryItems = parameters.map { URLQueryItem(name: $0.key, value: String(describing: $0.value)) }
+        }
+        
+        guard let url = urlComponents?.url else {
+            print("Invalid URL - \(urlComponents)")
+            return URLRequest(url: URL(fileURLWithPath: ""))
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
+        request.allHTTPHeaderFields = headers
+        
+        if method != .get,
+           let body = body {
+            request.httpBody = try? JSONEncoder().encode(body)
+        }
+        
+        return request
     }
     
     // MARK: - Async/await
