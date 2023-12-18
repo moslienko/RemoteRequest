@@ -38,8 +38,8 @@ public struct Route<Output: Decodable, MappableOutput, ErrorType: RestError>: Ro
             wrappedValue.debug()
         }
         
-        if let cache = self.tryGetCash() as? MappableOutput {
-            completion(.success(cache))
+        if let cache = self.tryGetCash(), let cacheModel = cache as? MappableOutput {
+            completion(.success(cacheModel))
             return
         }
         
@@ -120,8 +120,8 @@ public struct Route<Output: Decodable, MappableOutput, ErrorType: RestError>: Ro
             wrappedValue.debug()
         }
         
-        if let cache = self.tryGetCash() as? MappableOutput {
-            return .success(cache)
+        if let cache = self.tryGetCash(), let cacheModel = cache as? MappableOutput {
+            return .success(cacheModel)
         }
         
         do {

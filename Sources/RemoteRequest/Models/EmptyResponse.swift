@@ -13,7 +13,6 @@ public class EmptyResponse: ObjectMappable {
     public typealias MappableOutput = Any
     
     public func createModel() -> Any? {
-        #warning("todo create EmptyModel")
         ()
     }
 }
