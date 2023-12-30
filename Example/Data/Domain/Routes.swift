@@ -25,11 +25,11 @@ struct Routes {
         _fetchPosts.runRequest(completion: completion)
     }
     
-    func createPost(_ post: CreatePostRequest, completion: @escaping (ResultData<IdendifierModel>) -> Void) {
-        @Route<IdendifierResponse, IdendifierModel, RegRestErrorResponse>(Routes.baseURL + "/posts", method: .post, body: post)
-        var createPost: URLRequest
+    func createPost(_ postRequest: CreatePostRequest, completion: @escaping (ResultData<IdendifierModel>) -> Void) {
+        @POST<IdendifierResponse, IdendifierModel, RegRestErrorResponse>(Routes.baseURL + "/posts", body: postRequest)
+        var createPost: RouteRestProtocol
         
-        _createPost.runRequest(completion: completion)
+        createPost.runRequest(completion: completion)
     }
     
     func updatePost(_ post: UpdatePostRequest, completion: @escaping (ResultData<IdendifierModel>) -> Void) {
@@ -70,10 +70,10 @@ struct Routes {
     }
     
     func uploadFile(_ file: InputFile, completion: @escaping (ResultData<Any>) -> Void, progressHandler: ((Double) -> Void)? = nil) {
-        @Route<EmptyResponse, Any, RegRestErrorResponse>("https://postman-echo.com/post", method: .post, inputFile: file)
-        var uploadPost: URLRequest
+        @UPLOAD<EmptyResponse, Any, RegRestErrorResponse>("https://postman-echo.com/post", inputFile: file)
+        var uploadPost: RouteUploadProtocol
         
-        _uploadPost.runUploadRequest(completion: completion, progressHandler: progressHandler)
+        uploadPost.runUploadRequest(completion: completion, progressHandler: progressHandler)
     }
     
     @available(iOS 15.0, *)
