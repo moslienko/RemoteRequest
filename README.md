@@ -1,5 +1,5 @@
 <p align="center">
-   <img width="200" src="https://raw.githubusercontent.com/SvenTiigi/SwiftKit/gh-pages/readMeAssets/SwiftKitLogo.png" alt="RemoteRequest Logo">
+   <img width="200" src="https://moslienko.github.io/Assets/RemoteRequestApp/sdk.png" alt="RemoteRequest Logo">
 </p>
 
 <p align="center">
@@ -17,6 +17,19 @@
 Library for creating and sending requests to a remote server
 </p>
 
+## Table of Contents
+
+* [Features](#features)
+* [Example](#example)
+* [Installation](#installation)
+* [Usage](#usage)
+  * [Rest request](#rest-request)
+  * [Upload file](#upload-file)
+  * [Async/await](#asyncawait)
+  * [Headers](#headers)
+  * [Configuration](#configuration)
+  * [Cashing](#cashing)
+
 ## Features
 
 - [x] Create Rest requests
@@ -26,6 +39,8 @@ Library for creating and sending requests to a remote server
 - [x] Cache request answers
 - [x] Logging
 - [x] Configuring parameters
+
+For fast code generation it is recommended to use the [Remote Request Application](https://github.com/moslienko/RemoteRequestApp/).
 
 ## Example
 
@@ -100,7 +115,7 @@ Example:
 
 ```swift
 func fetchPost(postID: Int, completion: @escaping(ResultData <PostModel>) -> Void) {
-     @Route <PostResponse, PostModel, RegRestErrorResponse>(Routes.baseURL + "/posts/\(postID)", method: .get)
+     @Route<PostResponse, PostModel, RegRestErrorResponse>(Routes.baseURL + "/posts/\(postID)", method: .get)
      var fetchPost: URLRequest
      _fetchPost.runRequest(completion: completion)
  }
